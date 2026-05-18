@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Ledger</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Banner 載入縮放動畫 */
+        @keyframes bannerZoomOut {
+            0% { transform: scale(1.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .banner-zoom-effect {
+            animation: bannerZoomOut 6.0s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+            transform-origin: right center;
+        }
+
+        /* 向下箭頭動畫 */
+        @keyframes bounceDown {
+            0% { transform: translateY(0); opacity: 0.7; }
+            50% { transform: translateY(12px); opacity: 1; }
+            100% { transform: translateY(0); opacity: 0.7; }
+        }
+        .scroll-down-arrow {
+            position: absolute;
+            right: 40px;
+            bottom: 40px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px); /* 玻璃質感 */
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 22px;
+            text-decoration: none;
+            z-index: 10;
+            animation: bounceDown 2s infinite ease-in-out;
+            transition: background 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .scroll-down-arrow:hover {
+            background: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+        }
+        /* 手機版適應 */
+        @media (max-width: 768px) {
+            .scroll-down-arrow {
+                right: 20px;
+                bottom: 20px;
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="aurora-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+</div>
+
+<header style="position: relative; width: 100%; margin: 0; padding: 0; overflow: hidden;">
+    <img src="img/banner.png" alt="Travel Ledger Banner" class="banner-zoom-effect" style="width: 100%; height: auto; display: block; border-radius: 0; box-shadow: none;">
+    
+    <a href="#case-study" class="scroll-down-arrow" title="向下捲動以了解更多">
+        <i class="fas fa-chevron-down"></i>
+    </a>
+</header>
+
+<div class="sticky-nav-container" style="margin-top: 0;">
+    <button class="nav-scroll-btn left-arrow"><i class="fas fa-chevron-left"></i></button>
+    <nav class="sticky-nav">
+        <a href="#case-study">案例研究(Case Study)</a>
+        <a href="#introduction">系統介紹(System Introduction)</a>
+        <a href="#uiux">UI/UX設計</a>
+        <a href="#sdd">系統設計規格書(SDD)</a>
+        <a href="#use-case">使用案例圖(Use Case)</a>
+        <a href="#erd">實體關聯圖(ERD)</a>
+    </nav>
+    <button class="nav-scroll-btn right-arrow"><i class="fas fa-chevron-right"></i></button>
+</div>
+
+<div class="main-layout">
+    <main class="content-area">
+
+        <div id="case-study" class="card fade-in-up">
+            <h2 class="section-title"><i class="fas fa-search"></i> 案例研究 (Case Study)</h2>
+            
+            <div class="intro-grid01">
+                <div class="intro-sub-card">
+                    <h4><i class="fas fa-exclamation-circle"></i> 問題</h4>
+                    <p class="about-text">
+                        旅遊時多人代墊款項與分攤邏輯（均分、比例、指定）極其複雜。傳統記帳軟體缺乏針對「多角債務」的底層架構，導致旅途結算混亂，難以精確釐清誰該還誰多少錢。
+                    </p>
+<div style="margin-top:20px;display:flex;flex-direction:column;gap:10px;">
+  <div style="display:flex;align-items:flex-start;gap:12px;background:#FEF2F2;border:1.5px solid #FECACA;border-radius:10px;padding:12px 16px;">
+    <span style="font-size:20px;flex-shrink:0;">😵</span>
+    <div style="font-size:13px;color:#7F1D1D;line-height:1.6;"><strong>多角債務難計算</strong><br>A付B、B付C、C又付A，人工計算極易出錯</div>
+  </div>
+  <div style="display:flex;align-items:flex-start;gap:12px;background:#FEF2F2;border:1.5px solid #FECACA;border-radius:10px;padding:12px 16px;">
+    <span style="font-size:20px;flex-shrink:0;">📊</span>
+    <div style="font-size:13px;color:#7F1D1D;line-height:1.6;"><strong>傳統軟體缺乏底層架構</strong><br>現有記帳 App 僅支援簡單均分，無法處理複雜分攤情境</div>
+  </div>
+  <div style="display:flex;align-items:flex-start;gap:12px;background:#FEF2F2;border:1.5px solid #FECACA;border-radius:10px;padding:12px 16px;">
+    <span style="font-size:20px;flex-shrink:0;">🌍</span>
+    <div style="font-size:13px;color:#7F1D1D;line-height:1.6;"><strong>跨幣別結算混亂</strong><br>多國旅遊涉及不同幣別，換算與結算同時進行令人頭痛</div>
+  </div>
+</div>
+                </div>
+
+                <div class="intro-sub-card">
+                    <h4><i class="fas fa-user-cog"></i> 我的角色</h4>
+                    <p class="about-text">
+                        我從需求分析出發，主導涵蓋「行前預算、旅途記帳、行後結算」完整生命週期的系統開發。結合 UI/UX 設計與專案管理思維，統籌規劃前端響應式介面、視覺風格，以及後端資料庫的正規化設計，確保財務數據的一致性與可維護性。
+                    </p>
+<div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;">
+  <div style="background:#EEF2FF;border:1.5px solid #C7D2FE;border-radius:10px;padding:10px 16px;text-align:center;font-size:13px;font-weight:600;color:#4338CA;min-width:90px;">📋<br>需求分析</div>
+  <div style="color:#A5B4FC;font-size:20px;font-weight:300;">→</div>
+  <div style="background:#EEF2FF;border:1.5px solid #C7D2FE;border-radius:10px;padding:10px 16px;text-align:center;font-size:13px;font-weight:600;color:#4338CA;min-width:90px;">🗂️<br>Use Case / ERD</div>
+  <div style="color:#A5B4FC;font-size:20px;font-weight:300;">→</div>
+  <div style="background:#EEF2FF;border:1.5px solid #C7D2FE;border-radius:10px;padding:10px 16px;text-align:center;font-size:13px;font-weight:600;color:#4338CA;min-width:90px;">🎨<br>UI/UX 設計</div>
+  <div style="color:#A5B4FC;font-size:20px;font-weight:300;">→</div>
+  <div style="background:#EEF2FF;border:1.5px solid #C7D2FE;border-radius:10px;padding:10px 16px;text-align:center;font-size:13px;font-weight:600;color:#4338CA;min-width:90px;">⚙️<br>前後端開發</div>
+  <div style="color:#A5B4FC;font-size:20px;font-weight:300;">→</div>
+  <div style="background:#4F46E5;border:1.5px solid #4338CA;border-radius:10px;padding:10px 16px;text-align:center;font-size:13px;font-weight:600;color:#fff;min-width:90px;">🚀<br>部署上線</div>
+</div>
+                </div>
+
+                <div class="intro-sub-card">
+                    <h4><i class="fas fa-lightbulb"></i> 關鍵決策</h4>
+                    <p class="about-text">
+                        為解決核心拆帳痛點，導入貪婪演算法（Greedy Algorithm）自動推導出最精簡的「建議轉帳清單」。視覺體驗上捨棄傳統進度條，創新設計「能量水瓶（Liquid Tank UI）」顯示預算水位，超支時觸發沸騰特效強化警示。資料安全面，設計防呆機制，刪除自訂類別時自動將帳務轉移至預設分類，防止產生孤兒數據。
+                    </p>
+<div style="margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+  <div style="background:#FEF2F2;border:1.5px solid #FECACA;border-radius:10px;padding:14px;">
+    <div style="font-size:12px;font-weight:700;color:#991B1B;margin-bottom:8px;">❌ 傳統做法</div>
+    <div style="font-size:13px;color:#7F1D1D;line-height:1.7;">人工計算分帳<br>Excel 手動記錄<br>進度條顯示預算<br>結算後仍需自行確認</div>
+  </div>
+  <div style="background:#F0FDF4;border:1.5px solid #BBF7D0;border-radius:10px;padding:14px;">
+    <div style="font-size:12px;font-weight:700;color:#166534;margin-bottom:8px;">✅ TravelLedger</div>
+    <div style="font-size:13px;color:#14532D;line-height:1.7;">Greedy Algorithm 自動結算<br>三種分帳模式一鍵選擇<br>Liquid Tank UI 視覺化預算<br>系統自動產出轉帳清單</div>
+  </div>
+</div>
+                </div>
+
+                <div class="intro-sub-card">
+                    <h4><i class="fas fa-award"></i> 結果與學習</h4>
+                    <p class="about-text">
+                        系統成功整合三種分帳模式與匯率轉換，支援一鍵匯出結算報表。這次經驗讓我深刻體會到：好的設計必須建立在對系統底層的理解上——從底層資料庫架構到前端互動體驗的通盤掌握，才能將複雜的業務邏輯轉化為流暢的數位體驗。
+                    </p>
+<div style="margin-top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;">
+  <div style="background:#EEF2FF;border:1.5px solid #C7D2FE;border-radius:10px;padding:14px;text-align:center;">
+    <div style="font-size:26px;font-weight:800;color:#4338CA;">3</div>
+    <div style="font-size:12px;color:#6366F1;font-weight:600;margin-top:2px;">分帳模式</div>
+  </div>
+  <div style="background:#EEF2FF;border:1.5px solid #C7D2FE;border-radius:10px;padding:14px;text-align:center;">
+    <div style="font-size:26px;font-weight:800;color:#4338CA;">2</div>
+    <div style="font-size:12px;color:#6366F1;font-weight:600;margin-top:2px;">匯出格式<br>CSV / PDF</div>
+  </div>
+  <div style="background:#EEF2FF;border:1.5px solid #C7D2FE;border-radius:10px;padding:14px;text-align:center;">
+    <div style="font-size:26px;font-weight:800;color:#4338CA;">1人</div>
+    <div style="font-size:12px;color:#6366F1;font-weight:600;margin-top:2px;">貫穿完整<br>開發週期</div>
+  </div>
+</div>
+<div style="background:#F0FDF4;border:1.5px solid #BBF7D0;border-radius:10px;padding:14px;">
+<div style="font-size:12px;font-weight:700;color:#166534;margin-bottom:8px;">🔍 UI/UX設計師的最大體悟</div>
+  <div style="font-size:13px;color:#14532D;line-height:1.8;">
+    當UI/UX設計師真正走過每一個開發環節，才能在<strong>對的時間點</strong>提出對的問題。<br>
+    技術視野不是要取代工程師，而是讓溝通更精準、判斷更有依據。
+  </div>
+</div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="introduction" class="card fade-in-up">
+            <h2 class="section-title"><i class="fas fa-file-code"></i> 系統介紹 (System Introduction)</h2>
+            <p class="about-text">
+                「TravelLedger」是基於<span class="highlight"> ASP.NET Core MVC (C#) </span>框架開發，並採用 SQL Server 作為關聯式資料庫的旅遊帳簿與預算管理系統。
+            </p>
+            
+            <div class="intro-grid">
+                <div class="intro-sub-card">
+                    <h4><i class="fas fa-server"></i> 後端架構與資料庫設計</h4>
+                    <p class="about-text">
+                        系統後端採用 Entity Framework Core 進行資料庫操作，實作了包含使用者、旅程、類別、行程、支出明細以及分帳紀錄等多關聯性的資料庫模型，確保多對多關係的財務數據一致性與完整性。
+                    </p>
+                </div>
+
+                <div class="intro-sub-card">
+                    <h4><i class="fas fa-laptop-code"></i> 前端架構與動態介面實作</h4>
+                    <p class="about-text">
+                        前端介面運用 HTML、CSS 與 JavaScript 進行深度開發，採用現代化的「毛玻璃（Glassmorphism）」視覺風格與動態響應式設計（RWD）。系統運用非同步資料交換與動態模態視窗，無縫串接後端 API。
+                    </p>
+                </div>
+
+                <div class="intro-sub-card">
+                    <h4><i class="fas fa-gem"></i> 系統核心價值</h4>
+                    <p class="about-text">
+                        本系統不僅提供完整的記帳 CRUD 功能，更整合了行程時間軸與實體圖片上傳至伺服器端的功能。系統內建複雜的分帳演算法與匯率轉換機制，完美涵蓋了從「行前預算編列」、「旅途中記帳與行程對照」到「行後財務結算」的完整旅遊生命週期。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="uiux" class="card fade-in-up">
+            <h2 class="section-title"><i class="fas fa-layer-group"></i> UI/UX設計</h2>
+
+<section id="design-process">
+  <h2>設計思考過程 (Design Process)</h2>
+
+  <div style="margin-bottom:32px;">
+    <h4 style="margin-bottom:12px;">① 使用者洞察 User Insight</h4>
+    <p>
+      TravelLedger 源自我自身與朋友多人旅遊的親身經歷。每次旅途結束後，「誰付了多少、誰還欠誰多少錢」的結算過程總是令人頭痛——
+      代墊款項散落在不同人的記憶與手機備忘錄中，
+      均分又無法處理「有人不參與某項活動」的情境，
+      跨國旅遊還要同時處理多種幣別的換算。
+      這些真實的問題，成為我設計這套系統的核心驅動力。
+    </p>
+    <div style="display:grid;gap:10px;margin-top:16px;grid-template-columns: 1fr 1fr;">
+      <div style="display:flex;align-items:flex-start;gap:12px;background:#EEF2FF;border:1.5px solid #C7D2FE;border-radius:10px;padding:12px 16px;">
+        <span style="font-size:20px;flex-shrink:0;">🎯</span>
+        <div style="font-size:13px;line-height:1.7;"><strong>核心痛點</strong><br>多人代墊後的結算過程複雜且容易出錯，傳統記帳App只能均分，無法處理「多角債務」的現實情境</div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:12px;background:#EEF2FF;border:1.5px solid #C7D2FE;border-radius:10px;padding:12px 16px;">
+        <span style="font-size:20px;flex-shrink:0;">💡</span>
+        <div style="font-size:13px;line-height:1.7;"><strong>設計目標</strong><br>打造一套從「行前預算」到「行後結算」的完整旅遊財務管理工具，讓複雜的分帳邏輯變得直覺且自動化</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:32px;">
+    <h4 style="margin-bottom:12px;">② 設計演進 Design Evolution</h4>
+    <p>
+      初版設計以功能導向為主，介面風格單調，色彩單一，
+      版面採用傳統條列式排版，雖然資訊清楚，但缺乏情感溫度，
+      無法傳遞旅遊本身愉悅、充滿期待的氛圍。
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;">
+      <div style="background:#FEF2F2;border:1.5px solid #FECACA;border-radius:10px;padding:14px;">
+        <div style="font-size:12px;font-weight:700;color:#991B1B;margin-bottom:8px;">📌 初版問題</div>
+        <div style="font-size:13px;color:#7F1D1D;line-height:1.8;">
+          色彩單調、缺乏層次<br>
+          條列式排版，視覺疲勞<br>
+          預算用普通進度條顯示<br>
+          介面功能性強但缺乏個性
+        </div>
+      </div>
+      <div style="background:#F0FDF4;border:1.5px solid #BBF7D0;border-radius:10px;padding:14px;">
+        <div style="font-size:12px;font-weight:700;color:#166534;margin-bottom:8px;">✨ 最終優化</div>
+        <div style="font-size:13px;color:#14532D;line-height:1.8;">
+          Glassmorphism 玻璃質感風格<br>
+          沉浸式主題元件設計<br>
+          Liquid Tank 能量水瓶預算條<br>
+          票券風、收據風情境化排版
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:32px;">
+    <h4 style="margin-bottom:12px;">③ 視覺風格決策 Visual Decision</h4>
+    <p>
+      最終選定 <strong>Glassmorphism（玻璃擬物化）</strong>作為整體視覺語言，
+      這是一個刻意的挑戰——主動碰觸當下流行的設計趨勢，而不只是使用安全的傳統風格。
+    </p>
+    <div style="display:grid;gap:10px;margin-top:16px;grid-template-columns: 1fr 1fr;">
+      <div style="display:flex;align-items:flex-start;gap:12px;background:#FAEEDA;border:1.5px solid #EF9F27;border-radius:10px;padding:12px 16px;">
+        <span style="font-size:20px;flex-shrink:0;">🪟</span>
+        <div style="font-size:13px;line-height:1.7;"><strong>Glassmorphism 選擇理由</strong><br>大量使用 backdrop-filter: blur() 與半透明背景，搭配 CSS 動畫漂浮色塊，營造動態呼吸感，與旅遊「輕鬆、愉悅」的情感氛圍高度吻合</div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:12px;background:#FAEEDA;border:1.5px solid #EF9F27;border-radius:10px;padding:12px 16px;">
+        <span style="font-size:20px;flex-shrink:0;">🎫</span>
+        <div style="font-size:13px;line-height:1.7;"><strong>情境化元件設計</strong><br>捨棄通用UI元件，以「Boarding Pass 票券風行程」、「Thermal Receipt 熱感應收據風明細」、「Liquid Tank 能量水瓶預算條」打造沉浸式體驗，讓使用者在操作中感受旅遊趣味</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:32px;">
+    <h4 style="margin-bottom:12px;">④ 測試與反思 Testing & Reflection</h4>
+    <p>
+      系統完成後多次功能測試，模擬真實多人旅遊情境，
+      逐一驗證分帳計算邏輯、匯率轉換、預算水位警示與報表匯出的正確性。
+      這個過程讓我發現幾個原本忽略的細節——
+      例如刪除自訂類別時帳務會變成孤兒數據的問題，
+      進而設計了自動轉移至預設分類的防呆機制。
+    </p>
+    <div style="background:#EEF2FF;border:1.5px solid #C7D2FE;border-radius:10px;padding:14px;margin-top:16px;">
+      <div style="font-size:12px;font-weight:700;color:#3730A3;margin-bottom:8px;">🔍 最大的設計體悟</div>
+      <div style="font-size:13px;color:#312E81;line-height:1.8;">
+        好的介面設計不只是視覺美觀——當設計師真正走過開發每個環節，
+        才能設計出<strong>開發可行、邏輯自洽、使用者真正需要</strong>的介面。
+        技術理解是設計決策的地基，而非設計的對立面。
+      </div>
+    </div>
+  </div>
+
+<div style="margin-top:16px;text-align:center;">
+  <a href="wireframe.html" target="_blank"
+     style="display:inline-flex;align-items:center;gap:8px;
+            color:#fff;
+            font-size:16px;font-weight:600;
+            padding: 8px 46px;border-radius:100px;
+            text-decoration:none;
+            box-shadow:0 2px 10px rgba(79,70,229,.25);
+            transition:opacity .2s;
+           background: linear-gradient(135deg, var(--primary) 0%, #818CF8 100%); "
+     onmouseover="this.style.opacity='.85'"
+     onmouseout="this.style.opacity='1'">
+    查看完整線框圖 Wireframe
+  </a>
+  <div style="font-size:11px;color:#888;margin-top:6px;">
+    含 Desktop + Mobile RWD 對照 ｜ 4 張介面
+  </div>
+</div>
+
+</section>
+
+            <h3 style="font-size: 16px; margin: 20px 0 16px; color: var(--text-dark); font-weight: 700;">TravelLedger系統設計作品</h3>
+            <div class="portfolio-grid">
+                <div class="portfolio-item"><div class="img-wrapper"><img src="img/2026a.jpg" alt="TravelLedger 首頁"></div><p>TravelLedger 首頁總覽</p></div>
+                <div class="portfolio-item"><div class="img-wrapper"><img src="img/2026b.jpg" alt="TravelLedger 預算透視"></div><p>TravelLedger 預算透視</p></div>
+                <div class="portfolio-item"><div class="img-wrapper"><img src="img/2026c.jpg" alt="TravelLedger 行程規劃"></div><p>TravelLedger 行程規劃</p></div>
+               <div class="portfolio-item"><div class="img-wrapper"><img src="img/2026c01.jpg" alt="TravelLedger 編輯行程"></div><p>TravelLedger 編輯行程</p></div>
+                <div class="portfolio-item"><div class="img-wrapper"><img src="img/2026d.jpg" alt="TravelLedger 支出明細"></div><p>TravelLedger 支出明細</p></div>
+                <div class="portfolio-item"><div class="img-wrapper"><img src="img/2026e.jpg" alt="TravelLedger 旅程設定"></div><p>TravelLedger 旅程設定</p></div>
+                <div class="portfolio-item"><div class="img-wrapper"><img src="img/2026f.jpg" alt="TravelLedger 手機版(RWD)"></div><p>手機版(RWD)</p></div>
+                <div class="portfolio-item"><div style="height: 210px;" class="img-wrapper"><img src="img/2026g.png" alt="TravelLedger 手機版(RWD)"></div><p>手機版(RWD)</p></div>
+                <div class="portfolio-item"><div style="height: 210px;" class="img-wrapper"><img src="img/2026h.png" alt="TravelLedger 手機版(RWD)"></div><p>手機版(RWD)</p></div>
+            </div>
+        </div>
+
+        <div id="sdd" class="card fade-in-up">
+            <h2 class="section-title"><i class="fas fa-code"></i> 系統設計規格書 (System Design Document)</h2>
+            <p class="about-text">
+                「TravelLedger 旅遊帳簿與預算管理系統」本文件涵蓋了系統架構、資料庫結構、API 規格、核心功能模組以及前端 UI/UX 規格，非常適合用於系統交接、未來擴充或作為「規格驅動開發」的基準文件。
+            </p>
+
+            <div class="project-group" style="margin-top: 32px;">
+                <h3><i class="fas fa-info-circle"></i> 系統概述 (System Overview)</h3>
+                <div class="sdd-indent">
+                    <p class="about-text">
+                        TravelLedger 是一款專為多人團體旅遊設計的綜合型網頁應用程式。系統結合了「行程規劃」、「記帳分帳」與「預算監控」三大核心，旨在解決旅遊中繁瑣的財務拆分問題，並提供具備高度視覺回饋（如實體票券風、收據風、液體膠囊水位等）的沉浸式使用者體驗。
+                    </p>
+                </div>
+            </div>
+
+            <div class="project-group">
+                <h3><i class="fas fa-sitemap"></i> 系統架構 (System Architecture)</h3>
+                <div class="sdd-indent">
+                    <p class="about-text">本系統前端採 SPA（單頁應用）體驗設計，後端由 MVC 架構支撐資料渲染與 API 服務。</p>
+                    <div class="skills-container">
+                        <span class="skill-tag"><i class="fas fa-server" style="color: var(--primary);"></i> 後端框架: ASP.NET Core MVC</span>
+                        <span class="skill-tag"><i class="fas fa-database" style="color: var(--primary);"></i> ORM: Entity Framework Core</span>
+                        <span class="skill-tag"><i class="fas fa-hdd" style="color: var(--primary);"></i> 資料庫: SQL Server</span>
+                        <span class="skill-tag"><i class="fab fa-html5" style="color: var(--primary);"></i> 前端技術: HTML5, CSS3, Vanilla JS</span>
+                        <span class="skill-tag"><i class="fas fa-folder-open" style="color: var(--primary);"></i> 檔案儲存: 雲端主機儲存</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-group">
+                <h3><i class="fas fa-cogs"></i> 核心業務邏輯與模組 (Core Modules)</h3>
+                <div class="sdd-indent intro-grid">
+                    <div class="intro-sub-card">
+                        <h4><i class="fas fa-calculator"></i> 記帳與分帳模組</h4>
+                        <p class="about-text">系統支援三種分帳模式，於前端計算後寫入資料庫的 ExpenseSplit 表中：</p>
+                        <div style="margin-top: auto;">
+                            <span class="tag-mini">均分</span> 將總金額平均分配<br>
+                            <span class="tag-mini">比例</span> 依照輸入的百分比計算<br>
+                            <span class="tag-mini">指定</span> 輸入每位成員絕對金額
+                        </div>
+                    </div>
+                    <div class="intro-sub-card">
+                        <h4><i class="fas fa-chart-line"></i> 預算水位監控模組</h4>
+                        <p class="about-text">動態遍歷各 Category，計算該類別下所有 Expense 的總和，並與 BudgetLimit 進行比對。若超支觸發 Danger 狀態（前端表現為液體沸騰、紅色警示）。</p>
+                    </div>
+                    <div class="intro-sub-card">
+                        <h4><i class="fas fa-file-invoice-dollar"></i> 報表與結算模組</h4>
+                        <p class="about-text">支援匯出 CSV 與 PDF 報表格式。內建結算演算法，透過貪婪演算法 (Greedy Algorithm) 匹配債務人與債權人，快速產出最少筆數的「建議轉帳清單」。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-group" style="margin-top: 32px;">
+                <h3><i class="fas fa-paint-brush"></i> UI/UX 與前端規格 (UI/UX Specifications)</h3>
+                <div class="sdd-indent intro-grid">
+                    <div class="intro-sub-card">
+                        <h4><i class="fas fa-magic"></i> 視覺風格 (Visual Style)</h4>
+                        <p class="about-text">以 Glassmorphism (玻璃擬物化) 為主，大量使用 backdrop-filter: blur() 與半透明背景色。環境背景透過 CSS 動畫製作漂浮色塊，營造動態呼吸感。</p>
+                    </div>
+                    <div class="intro-sub-card">
+                        <h4><i class="fas fa-puzzle-piece"></i> 核心自訂元件</h4>
+                        <p class="about-text">包含實體票券風行程 (Boarding Pass)、熱感應收據風明細 (Thermal Receipt) 以及能量水瓶預算條 (Liquid Tanks) 等沉浸式元件設計。</p>
+                    </div>
+                    <div class="intro-sub-card">
+                        <h4><i class="fas fa-universal-access"></i> 無障礙顯示輔助</h4>
+                        <p class="about-text">提供 UI 增強模式，使用者可透過設定動態調整飽和度與對比，並為玻璃卡片切換實體化防洗白邊框，提升低對比度環境下的辨識率。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-group" style="margin-top: 32px;">
+                <h3><i class="fas fa-table"></i> 資料庫設計 (Database Schema / ERD)</h3>
+                <div class="sdd-indent">
+                    <div class="table-responsive">
+                        <table class="typo-table">
+                            <thead>
+                                <tr><th>實體 (Entity)</th><th>說明</th><th>核心欄位與關聯</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><strong>User</strong></td><td>使用者帳號</td><td>UserId (PK), Name, AvatarUrl</td></tr>
+                                <tr><td><strong>Trip</strong></td><td>旅程主檔</td><td>TripId (PK), Title, StartDate, EndDate, TotalBudget</td></tr>
+                                <tr><td><strong>TripMember</strong></td><td>旅程成員關聯表</td><td>TripId (PK/FK), UserId (PK/FK), Role, JoinedAt</td></tr>
+                                <tr><td><strong>Category</strong></td><td>預算類別</td><td>CategoryId (PK), TripId (FK), Key, Name, Icon, BudgetLimit</td></tr>
+                                <tr><td><strong>ItineraryItem</strong></td><td>行程節點</td><td>ItineraryId (PK), TripId (FK), Title, ScheduledTime, EstimatedCost</td></tr>
+                                <tr><td><strong>Expense</strong></td><td>支出主檔</td><td>ExpenseId (PK), TripId (FK), Title, Amount, PayerId, SplitMode</td></tr>
+                                <tr><td><strong>ExpenseSplit</strong></td><td>分帳明細表</td><td>SplitId (PK), ExpenseId (FK), DebtorId (FK), AmountOwed</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-group" style="margin-top: 32px;">
+                <h3><i class="fas fa-exchange-alt"></i> API 介面規格 (API Specifications)</h3>
+                <div class="sdd-indent">
+                    <div class="table-responsive">
+                        <table class="typo-table">
+                            <thead>
+                                <tr><th>路由 (Route)</th><th>方法</th><th>參數 / Body</th><th>說明</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><code>/Trip/Index</code></td><td>GET</td><td>無</td><td>渲染首頁，載入初始 ViewModel。</td></tr>
+                                <tr><td><code>/Trip/AddExpense</code></td><td>POST</td><td>Expense 參數</td><td>新增支出，包含關聯的 ExpenseSplit。</td></tr>
+                                <tr><td><code>/Trip/UpdateExpense</code></td><td>POST</td><td>Expense 參數</td><td>更新支出，會先清空舊的 Splits 再重新寫入。</td></tr>
+                                <tr><td><code>/Trip/UploadImage</code></td><td>POST</td><td>IFormFile file</td><td>接收圖片，儲存至伺服器，回傳檔案 URL。</td></tr>
+                                <tr><td><code>/Trip/InviteMember</code></td><td>POST</td><td>InviteMemberDto</td><td>新增成員，若無頭像則呼叫 DiceBear API 產生。</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="use-case" class="card fade-in-up">
+            <h2 class="section-title"><i class="fas fa-project-diagram"></i> 使用案例圖 (Use Case)</h2>
+            <p class="about-text">
+                展示 TravelLedger 系統中不同角色（使用者、旅伴、未來展望的 API 服務）與系統核心功能（預算行程、記帳收據、分帳協作、查詢分析）之間的互動關係。
+            </p>
+            <div class="diagram-container">
+                <img src="img/use_case.png" alt="TravelLedger Use Case Diagram" class="diagram-img" data-caption="TravelLedger 使用案例圖">
+            </div>
+        </div>
+
+        <div id="erd" class="card fade-in-up">
+            <h2 class="section-title"><i class="fas fa-database"></i> 實體關聯圖 (ERD)</h2>
+            <p class="about-text">
+                描述系統底層資料庫的結構設計，以 Trip (旅程) 為核心，延伸出使用者、成員關聯、預算類別、行程節點、支出主檔與分帳明細之間的關聯性 (1對1、1對多等)。
+            </p>
+            <div class="diagram-container">
+                <img src="img/erd.jpg" alt="TravelLedger Entity Relationship Diagram" class="diagram-img" data-caption="TravelLedger 實體關聯圖">
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<button id="back-to-top" class="btn-top" title="回到頂部"><i class="fas fa-chevron-up"></i></button>
+
+<div id="lightbox" class="lightbox">
+    <button class="lightbox-btn lightbox-close"><i class="fas fa-times"></i></button>
+    <button class="lightbox-btn lightbox-prev"><i class="fas fa-chevron-left"></i></button>
+    <div class="lightbox-content-wrapper">
+        <img id="lightbox-img" class="lightbox-content" src="" alt="大圖預覽">
+        <div id="lightbox-caption"></div>
+    </div>
+    <button class="lightbox-btn lightbox-next"><i class="fas fa-chevron-right"></i></button>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

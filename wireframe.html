@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TravelLedger 線框圖 Wireframe</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #F3F4F6; color: #111827; padding: 32px 24px; }
+
+/* ── 容器寬度限制 ── */
+.page-container { max-width: 1200px; margin: 0 auto; }
+
+h1 { font-size: 18px; font-weight: 600; color: #111827; margin-bottom: 4px; }
+.meta { font-size: 12px; color: #6B7280; margin-bottom: 8px; }
+.rwd-badge { display: flex; gap: 6px; margin-bottom: 28px; flex-wrap: wrap; }
+.badge { font-size: 10px; padding: 2px 8px; border-radius: 10px; border: 1px solid #D1D5DB; color: #4B5563; background: #F9FAFB; }
+.badge-blue { background: #EFF6FF; border-color: #BFDBFE; color: #1D4ED8; font-weight: 500; }
+.section-label { font-size: 12px; font-weight: 700; color: #4B5563; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.rwd-label { font-size: 11px; color: #6B7280; margin-bottom: 8px; display: flex; gap: 8px; align-items: center; }
+.rwd-label span { background: #FFFFFF; border: 1px solid #D1D5DB; border-radius: 4px; padding: 2px 6px; font-size: 10px; color: #374151; font-weight: 500; }
+.wf-wrap { margin-bottom: 52px; }
+
+/* ── 並排版型：Desktop 佔大部分，手機固定寬度 ── */
+.rwd-compare { display: grid; grid-template-columns: 1fr 220px; gap: 24px; align-items: start; }
+@media (max-width: 700px) { .rwd-compare { grid-template-columns: 1fr; } body { padding: 16px 12px; } }
+
+/* ── Desktop Frame ── */
+.wf-frame { border: 1px solid #D1D5DB; border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+.wf-titlebar { background: #F9FAFB; border-bottom: 1px solid #D1D5DB; padding: 7px 12px; display: flex; align-items: center; gap: 5px; }
+.wf-dot { width: 8px; height: 8px; border-radius: 50%; background: #D1D5DB; flex-shrink: 0; }
+.wf-titlebar-text { font-size: 11px; color: #6B7280; margin-left: 5px; font-weight: 500; }
+.wf-titlebar-rwd { margin-left: auto; font-size: 10px; color: #9CA3AF; }
+.wf-body { display: flex; }
+
+/* ── Sidebar ── */
+.wf-sidebar { width: 136px; min-width: 136px; flex-shrink: 0; border-right: 1px solid #E5E7EB; padding: 10px 8px; display: flex; flex-direction: column; gap: 4px; background: #F9FAFB; }
+.wf-logo { height: 22px; background: #D1D5DB; border-radius: 5px; margin-bottom: 8px; border: 1px solid #9CA3AF; }
+.wf-nav-item { height: 24px; border-radius: 5px; background: #FFFFFF; border: 1px solid #E5E7EB; display: flex; align-items: center; padding: 0 8px; font-size: 11px; color: #4B5563; white-space: nowrap; overflow: hidden; transition: all 0.2s; }
+.wf-nav-item.active { background: #EFF6FF; border-color: #BFDBFE; color: #1D4ED8; font-weight: 600; }
+.wf-trip-card { margin-top: auto; background: #F3F4F6; border-radius: 7px; border: 1px solid #D1D5DB; padding: 7px 8px; }
+.wf-trip-label { font-size: 9px; color: #6B7280; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; font-weight: 600; }
+.wf-trip-name { height: 9px; background: #9CA3AF; border-radius: 3px; margin-bottom: 5px; }
+.wf-avatars { display: flex; gap: 3px; }
+.wf-avatar { width: 14px; height: 14px; border-radius: 50%; background: #D1D5DB; border: 1px solid #9CA3AF; flex-shrink: 0; }
+
+/* ── Content ── */
+.wf-content { flex: 1; padding: 12px 14px; min-width: 0; }
+.wf-pg-title { height: 14px; width: 80px; background: #E5E7EB; border-radius: 4px; border: 1px solid #D1D5DB; margin-bottom: 6px; }
+.wf-pg-sub { height: 10px; width: 130px; background: #F3F4F6; border-radius: 3px; border: 1px solid #E5E7EB; margin-bottom: 14px; }
+
+/* ── Phone Shell ── */
+.phone-wrap { display: flex; flex-direction: column; align-items: center; }
+.phone-shell { width: 200px; border: 4px solid #9CA3AF; border-radius: 32px; overflow: hidden; background: #fff; box-shadow: 0 10px 25px -5px rgba(0,0,0,.15); position: relative; }
+.phone-notch { background: #F9FAFB; height: 22px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #E5E7EB; flex-shrink: 0; }
+.phone-notch-pill { width: 48px; height: 8px; background: #D1D5DB; border-radius: 4px; }
+.phone-screen { display: flex; flex-direction: column; min-height: 380px; }
+
+/* ── Mobile Top Bar ── */
+.m-topbar { background: #F9FAFB; border-bottom: 1px solid #E5E7EB; padding: 7px 10px; display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.m-hamburger { width: 16px; display: flex; flex-direction: column; gap: 3px; flex-shrink: 0; }
+.m-hamburger div { height: 2px; background: #4B5563; border-radius: 1px; }
+.m-logo { height: 16px; flex: 1; background: #D1D5DB; border-radius: 4px; border: 1px solid #9CA3AF; }
+.m-avatar { width: 20px; height: 20px; border-radius: 50%; background: #E5E7EB; border: 1px solid #D1D5DB; flex-shrink: 0; }
+
+/* ── Mobile Content ── */
+.m-content { padding: 12px 10px; flex: 1; }
+
+/* ── Mobile Bottom Nav ── */
+.m-bottomnav { background: #F9FAFB; border-top: 1px solid #E5E7EB; padding: 8px 4px 12px; display: flex; justify-content: space-around; flex-shrink: 0; }
+.m-tab { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: 1; }
+.m-tab-icon { width: 20px; height: 20px; background: #F3F4F6; border-radius: 5px; border: 1px solid #D1D5DB; }
+.m-tab-icon.active { background: #EFF6FF; border-color: #BFDBFE; }
+.m-tab-lbl { font-size: 9px; color: #9CA3AF; line-height: 1; font-weight: 500; }
+.m-tab-lbl.active { color: #1D4ED8; font-weight: 700; }
+
+/* ── Generic ── */
+.wf-block { background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 8px; }
+.wf-row { display: flex; gap: 10px; margin-bottom: 10px; }
+.wf-col { flex: 1; min-width: 0; }
+.note-blue { font-size: 11px; color: #1D4ED8; background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 4px; padding: 4px 8px; display: inline-block; margin-top: 8px; line-height: 1.5; font-weight: 500; }
+.note-red { font-size: 11px; color: #B91C1C; background: #FEF2F2; border: 1px solid #FECACA; border-radius: 4px; padding: 4px 8px; display: inline-block; margin-top: 8px; font-weight: 500; }
+.chip { font-size: 10px; font-weight: 500; border-radius: 4px; padding: 2px 6px; border: 1px solid #D1D5DB; background: #F3F4F6; color: #4B5563; display: inline-block; white-space: nowrap; }
+.chip-b { background: #EFF6FF; border-color: #BFDBFE; color: #1D4ED8; }
+.chip-r { background: #FEF2F2; border-color: #FECACA; color: #DC2626; }
+.list-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; border-bottom: 1px solid #E5E7EB; }
+.list-row:last-child { border-bottom: none; }
+.icon-sq { width: 16px; height: 16px; background: #D1D5DB; border-radius: 4px; border: 1px solid #9CA3AF; flex-shrink: 0; }
+.txt-bar { height: 8px; background: #E5E7EB; border-radius: 3px; border: 1px solid #D1D5DB; }
+
+/* ── Receipts ── */
+.receipt { border: 1px solid #D1D5DB; border-radius: 8px; overflow: hidden; flex: 1; min-width: 90px; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+.receipt-head { background: #F9FAFB; padding: 8px 10px; text-align: center; border-bottom: 1px dashed #9CA3AF; }
+.receipt-body { padding: 8px 10px; }
+.receipt-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.receipt-total { border-top: 1px dashed #9CA3AF; padding: 6px 10px; display: flex; justify-content: space-between; background: #F9FAFB; }
+.barcode { height: 12px; margin: 4px 10px 8px; border-radius: 1px; background: repeating-linear-gradient(90deg, #6B7280 0, #6B7280 2px, transparent 2px, transparent 4px); }
+
+/* ── Hero & Progress ── */
+.hero { background: #FFFFFF; border: 1px solid #D1D5DB; border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
+.bar-row { margin-bottom: 8px; }
+.bar-track { height: 6px; background: #F3F4F6; border-radius: 3px; border: 1px solid #E5E7EB; margin-top: 4px; overflow: hidden; }
+.bar-fill { height: 100%; background: #9CA3AF; border-radius: 2px; }
+.day-badge { background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 5px; padding: 3px 8px; font-size: 11px; font-weight: 700; color: #1D4ED8; }
+
+/* ── Timeline ── */
+.tl-wrap { display: flex; gap: 10px; }
+.tl-spine { display: flex; flex-direction: column; align-items: center; width: 14px; flex-shrink: 0; padding-top: 6px; }
+.tl-dot { width: 10px; height: 10px; border-radius: 50%; border: 2px solid #1D4ED8; background: #fff; flex-shrink: 0; }
+.tl-line { width: 2px; background: #BFDBFE; flex: 1; min-height: 12px; margin: 2px 0; }
+.tl-items { flex: 1; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.tl-card { border: 1px solid #D1D5DB; border-radius: 8px; background: #FFFFFF; display: flex; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.02); }
+.tl-img { width: 56px; min-width: 56px; background: #F3F4F6; border-right: 1px solid #E5E7EB; }
+.tl-info { flex: 1; padding: 8px 10px; min-width: 0; }
+.tl-right { min-width: 76px; padding: 8px 10px; text-align: right; border-left: 1px dashed #D1D5DB; background: #F9FAFB; }
+
+/* ── Tank UI ── */
+.tank { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.tank-body { width: 30px; height: 76px; border: 2px solid #D1D5DB; border-radius: 15px; overflow: hidden; background: #fff; position: relative; }
+.tank-fill { position: absolute; bottom: 0; left: 0; right: 0; background: #BFDBFE; border-top: 1px solid #93C5FD; transition: height 0.3s; }
+.tank-fill.over { background: #FECACA; border-color: #F87171; }
+.tank-lbl { font-size: 10px; color: #4B5563; text-align: center; line-height: 1.4; font-weight: 500; }
+.pct { font-size: 11px; color: #374151; font-weight: 700; }
+.pct.over { color: #DC2626; }
+</style>
+</head>
+<body>
+<div class="page-container">
+
+<h1>TravelLedger — 線框圖 Wireframe</h1>
+<p class="meta">UI/UX 設計過程文件 ｜ 4 張介面 × Desktop + Mobile RWD</p>
+<div class="rwd-badge">
+  <span class="badge badge-blue">Desktop ≥ 768px</span>
+  <span class="badge badge-blue">Mobile 390px</span>
+  <span class="badge">RWD 響應式設計</span>
+</div>
+
+<div class="wf-wrap">
+  <div class="section-label">介面 1 ／ 首頁儀表板 Dashboard</div>
+  <div class="rwd-compare">
+
+    <div>
+      <div class="rwd-label"><span>Desktop / Tablet ≥768px</span>左側側邊欄 + 雙欄主內容</div>
+      <div class="wf-frame">
+        <div class="wf-titlebar">
+          <div class="wf-dot"></div><div class="wf-dot"></div><div class="wf-dot"></div>
+          <span class="wf-titlebar-text">首頁儀表板</span>
+          <span class="wf-titlebar-rwd">max-width: 1200px</span>
+        </div>
+        <div class="wf-body">
+          <div class="wf-sidebar">
+            <div class="wf-logo"></div>
+            <div class="wf-nav-item active">首頁儀表板</div>
+            <div class="wf-nav-item">支出明細</div>
+            <div class="wf-nav-item">預算透視</div>
+            <div class="wf-nav-item">行程規劃</div>
+            <div class="wf-nav-item">旅程設定</div>
+            <div class="wf-trip-card">
+              <div class="wf-trip-label">Current Trip</div>
+              <div class="wf-trip-name"></div>
+              <div class="wf-avatars"><div class="wf-avatar"></div><div class="wf-avatar"></div><div class="wf-avatar"></div></div>
+            </div>
+          </div>
+          <div class="wf-content">
+            <div class="wf-pg-title"></div><div class="wf-pg-sub"></div>
+            <div class="hero" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+              <div style="flex:1;min-width:110px">
+                <div style="font-size:11px;color:#6B7280;margin-bottom:4px;font-weight:500">已支出總額</div>
+                <div style="height:20px;width:96px;background:#F3F4F6;border:1px solid #D1D5DB;border-radius:4px;margin-bottom:8px"></div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap">
+                  <span class="chip chip-b">總預算 $96,000</span>
+                  <span class="chip chip-b">剩餘 $55,000</span>
+                  <span class="chip chip-b">每日均 $11,000</span>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0">
+                <div style="width:56px;height:56px;border-radius:50%;border:3px solid #BFDBFE;background:#EFF6FF;display:flex;align-items:center;justify-content:center;font-size:12px;color:#1D4ED8;font-weight:700">43%</div>
+                <div style="font-size:9px;color:#6B7280;font-weight:500">圓環圖</div>
+              </div>
+              <div style="width:72px;height:58px;background:#F3F4F6;border-radius:6px;border:1px solid #D1D5DB;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:#9CA3AF">插圖</div>
+            </div>
+            <div class="wf-row" style="align-items:flex-start">
+              <div class="wf-col">
+                <div style="font-size:11px;font-weight:600;color:#374151;margin-bottom:6px">最新支出</div>
+                <div class="wf-block">
+                  <div class="list-row"><div style="display:flex;align-items:center;gap:6px;flex:1"><div class="icon-sq"></div><div class="txt-bar" style="width:70px"></div></div><span class="chip chip-b">NT$</span></div>
+                  <div class="list-row"><div style="display:flex;align-items:center;gap:6px;flex:1"><div class="icon-sq"></div><div class="txt-bar" style="width:55px"></div></div><span class="chip chip-b">NT$</span></div>
+                  <div class="list-row"><div style="display:flex;align-items:center;gap:6px;flex:1"><div class="icon-sq"></div><div class="txt-bar" style="width:60px"></div></div><span class="chip chip-b">NT$</span></div>
+                  <div class="list-row"><div style="display:flex;align-items:center;gap:6px;flex:1"><div class="icon-sq"></div><div class="txt-bar" style="width:45px"></div></div><span class="chip chip-b">NT$</span></div>
+                </div>
+              </div>
+              <div class="wf-col">
+                <div style="font-size:11px;font-weight:600;color:#374151;margin-bottom:6px">消費類別佔比</div>
+                <div class="wf-block" style="padding:10px 12px">
+                  <div class="bar-row"><div style="display:flex;justify-content:space-between"><span style="font-size:10px;color:#4B5563;font-weight:500">住宿 49%</span><span style="font-size:10px;color:#4B5563">NT$20,000</span></div><div class="bar-track"><div class="bar-fill" style="width:70%;background:#1D4ED8"></div></div></div>
+                  <div class="bar-row"><div style="display:flex;justify-content:space-between"><span style="font-size:10px;color:#4B5563;font-weight:500">購物 24%</span><span style="font-size:10px;color:#4B5563">NT$10,000</span></div><div class="bar-track"><div class="bar-fill" style="width:43%;background:#60A5FA"></div></div></div>
+                  <div class="bar-row"><div style="display:flex;justify-content:space-between"><span style="font-size:10px;color:#4B5563;font-weight:500">餐飲 15%</span><span style="font-size:10px;color:#4B5563">NT$6,000</span></div><div class="bar-track"><div class="bar-fill" style="width:26%;background:#9CA3AF"></div></div></div>
+                  <div class="bar-row"><div style="display:flex;justify-content:space-between"><span style="font-size:10px;color:#4B5563;font-weight:500">交通 7%</span><span style="font-size:10px;color:#4B5563">NT$3,000</span></div><div class="bar-track"><div class="bar-fill" style="width:12%;background:#D1D5DB"></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="rwd-label"><span>Mobile &lt;768px</span>漢堡選單 + 底部 Tab Bar</div>
+      <div class="phone-shell">
+        <div class="phone-notch"><div class="phone-notch-pill"></div></div>
+        <div class="phone-screen">
+          <div class="m-topbar">
+            <div class="m-logo"></div>
+            <div class="m-avatar"></div>
+          </div>
+          <div class="m-content">
+            <div class="wf-pg-title" style="width:65px;margin-bottom:10px"></div>
+            <div class="hero" style="flex-direction:column;gap:6px">
+              <div style="font-size:10px;color:#6B7280;font-weight:500">已支出總額</div>
+              <div style="height:18px;width:80px;background:#F3F4F6;border:1px solid #D1D5DB;border-radius:4px"></div>
+              <div style="display:flex;gap:5px;flex-wrap:wrap">
+                <span class="chip chip-b" style="font-size:9px">總預算</span>
+                <span class="chip chip-b" style="font-size:9px">剩餘</span>
+                <span class="chip chip-b" style="font-size:9px">每日均</span>
+              </div>
+            </div>
+            <div style="font-size:10px;font-weight:600;color:#374151;margin:12px 0 6px">最新支出</div>
+            <div class="wf-block">
+              <div class="list-row" style="padding:6px 10px"><div style="display:flex;align-items:center;gap:6px;flex:1"><div class="icon-sq" style="width:14px;height:14px"></div><div class="txt-bar" style="width:55px"></div></div><span class="chip chip-b" style="font-size:9px">NT$</span></div>
+              <div class="list-row" style="padding:6px 10px"><div style="display:flex;align-items:center;gap:6px;flex:1"><div class="icon-sq" style="width:14px;height:14px"></div><div class="txt-bar" style="width:45px"></div></div><span class="chip chip-b" style="font-size:9px">NT$</span></div>
+              <div class="list-row" style="padding:6px 10px"><div style="display:flex;align-items:center;gap:6px;flex:1"><div class="icon-sq" style="width:14px;height:14px"></div><div class="txt-bar" style="width:50px"></div></div><span class="chip chip-b" style="font-size:9px">NT$</span></div>
+            </div>
+            <div style="font-size:10px;font-weight:600;color:#374151;margin:12px 0 6px">類別佔比</div>
+            <div class="wf-block" style="padding:8px 10px">
+              <div class="bar-row"><div style="display:flex;justify-content:space-between"><span style="font-size:9px;color:#4B5563;font-weight:500">住宿</span><span style="font-size:9px;color:#4B5563">49%</span></div><div class="bar-track"><div class="bar-fill" style="width:70%;background:#1D4ED8"></div></div></div>
+              <div class="bar-row"><div style="display:flex;justify-content:space-between"><span style="font-size:9px;color:#4B5563;font-weight:500">購物</span><span style="font-size:9px;color:#4B5563">24%</span></div><div class="bar-track"><div class="bar-fill" style="width:43%;background:#60A5FA"></div></div></div>
+              <div class="bar-row"><div style="display:flex;justify-content:space-between"><span style="font-size:9px;color:#4B5563;font-weight:500">餐飲</span><span style="font-size:9px;color:#4B5563">15%</span></div><div class="bar-track"><div class="bar-fill" style="width:26%;background:#9CA3AF"></div></div></div>
+            </div>
+          </div>
+          <div class="m-bottomnav">
+            <div class="m-tab"><div class="m-tab-icon active"></div><div class="m-tab-lbl active">首頁</div></div>
+            <div class="m-tab"><div class="m-tab-icon"></div><div class="m-tab-lbl">支出</div></div>
+            <div class="m-tab"><div class="m-tab-icon"></div><div class="m-tab-lbl">預算</div></div>
+            <div class="m-tab"><div class="m-tab-icon"></div><div class="m-tab-lbl">行程</div></div>
+            <div class="m-tab"><div class="m-tab-icon"></div><div class="m-tab-lbl">設定</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wf-wrap">
+  <div class="section-label">介面 2 ／ 支出明細 — Thermal Receipt Style</div>
+  <div class="rwd-compare">
+    <div>
+      <div class="rwd-label"><span>Desktop / Tablet</span>三欄收據格線</div>
+      <div class="wf-frame">
+        <div class="wf-titlebar"><div class="wf-dot"></div><div class="wf-dot"></div><div class="wf-dot"></div><span class="wf-titlebar-text">支出明細</span><span class="wf-titlebar-rwd">max-width: 1200px</span></div>
+        <div class="wf-body">
+          <div class="wf-sidebar">
+            <div class="wf-logo"></div>
+            <div class="wf-nav-item">首頁儀表板</div>
+            <div class="wf-nav-item active">支出明細</div>
+            <div class="wf-nav-item">預算透視</div>
+            <div class="wf-nav-item">行程規劃</div>
+            <div class="wf-nav-item">旅程設定</div>
+            <div class="wf-trip-card"><div class="wf-trip-label">Current Trip</div><div class="wf-trip-name"></div><div class="wf-avatars"><div class="wf-avatar"></div><div class="wf-avatar"></div><div class="wf-avatar"></div></div></div>
+          </div>
+          <div class="wf-content">
+            <div class="wf-pg-title"></div><div class="wf-pg-sub"></div>
+            <div class="wf-block" style="padding:6px 10px;margin-bottom:12px;display:flex;gap:6px;align-items:center">
+              <div class="icon-sq" style="width:14px;height:14px"></div>
+              <div style="flex:1;height:14px;background:#fff;border:1px solid #D1D5DB;border-radius:4px"></div>
+              <span class="chip">清除</span><span class="chip chip-b">所有分類</span>
+            </div>
+            <div class="wf-row" style="flex-wrap:nowrap">
+              <div class="receipt">
+                <div class="receipt-head"><div style="font-size:11px;font-weight:700;color:#111827;letter-spacing:0.05em">Day 5 : RECEIPT</div><div style="font-size:9px;color:#6B7280;margin-top:2px">2026/03/27</div></div>
+                <div class="receipt-body"><div class="receipt-row"><span style="font-size:10px;color:#4B5563;font-weight:500">項目名稱</span><span style="font-size:10px;color:#111827;font-weight:600">NT$3,000</span></div><div style="font-size:9px;color:#6B7280">餐飲・付款人</div></div>
+                <div class="receipt-total"><span style="font-size:10px;color:#111827;font-weight:700">TOTAL</span><span style="font-size:10px;color:#1D4ED8;font-weight:700">NT$3,000</span></div>
+                <div class="barcode"></div>
+              </div>
+              <div class="receipt">
+                <div class="receipt-head"><div style="font-size:11px;font-weight:700;color:#111827;letter-spacing:0.05em">Day 4 : RECEIPT</div><div style="font-size:9px;color:#6B7280;margin-top:2px">2026/03/26</div></div>
+                <div class="receipt-body"><div class="receipt-row"><span style="font-size:10px;color:#4B5563;font-weight:500">項目名稱</span><span style="font-size:10px;color:#111827;font-weight:600">NT$1,000</span></div><div style="font-size:9px;color:#6B7280">其他・付款人</div></div>
+                <div class="receipt-total"><span style="font-size:10px;color:#111827;font-weight:700">TOTAL</span><span style="font-size:10px;color:#1D4ED8;font-weight:700">NT$1,000</span></div>
+                <div class="barcode"></div>
+              </div>
+              <div class="receipt">
+                <div class="receipt-head"><div style="font-size:11px;font-weight:700;color:#111827;letter-spacing:0.05em">Day 3 : RECEIPT</div><div style="font-size:9px;color:#6B7280;margin-top:2px">2026/03/25</div></div>
+                <div class="receipt-body"><div class="receipt-row"><span style="font-size:10px;color:#4B5563;font-weight:500">項目名稱</span><span style="font-size:10px;color:#111827;font-weight:600">NT$3,000</span></div><div style="font-size:9px;color:#6B7280">餐飲・付款人</div></div>
+                <div class="receipt-total"><span style="font-size:10px;color:#111827;font-weight:700">TOTAL</span><span style="font-size:10px;color:#1D4ED8;font-weight:700">NT$3,000</span></div>
+                <div class="barcode"></div>
+              </div>
+            </div>
+            <div class="note-blue">每日支出以熱感應收據風格呈現，底部條碼強化實體感</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-wrap">
+      <div class="rwd-label"><span>Mobile</span>單欄垂直收據列表</div>
+      <div class="phone-shell">
+        <div class="phone-notch"><div class="phone-notch-pill"></div></div>
+        <div class="phone-screen">
+          <div class="m-topbar"><div class="m-logo"></div><div class="m-avatar"></div></div>
+          <div class="m-content">
+            <div class="wf-pg-title" style="width:55px;margin-bottom:8px"></div>
+            <div class="wf-block" style="padding:6px 10px;margin-bottom:10px;display:flex;gap:6px;align-items:center">
+              <div style="flex:1;height:12px;background:#fff;border:1px solid #D1D5DB;border-radius:4px"></div>
+              <span class="chip chip-b" style="font-size:9px">分類</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div class="receipt" style="flex:none">
+                <div class="receipt-head"><div style="font-size:10px;font-weight:700;color:#111827">Day 5 : RECEIPT</div><div style="font-size:8px;color:#6B7280;margin-top:2px">2026/03/27 ｜ 1 item</div></div>
+                <div class="receipt-body"><div class="receipt-row"><span style="font-size:10px;color:#4B5563">項目名稱</span><span style="font-size:10px;color:#111827;font-weight:600">NT$3,000</span></div></div>
+                <div class="receipt-total"><span style="font-size:10px;color:#111827;font-weight:700">TOTAL</span><span style="font-size:10px;color:#1D4ED8;font-weight:700">NT$3,000</span></div>
+                <div class="barcode"></div>
+              </div>
+              <div class="receipt" style="flex:none">
+                <div class="receipt-head"><div style="font-size:10px;font-weight:700;color:#111827">Day 4 : RECEIPT</div><div style="font-size:8px;color:#6B7280;margin-top:2px">2026/03/26 ｜ 1 item</div></div>
+                <div class="receipt-body"><div class="receipt-row"><span style="font-size:10px;color:#4B5563">項目名稱</span><span style="font-size:10px;color:#111827;font-weight:600">NT$1,000</span></div></div>
+                <div class="receipt-total"><span style="font-size:10px;color:#111827;font-weight:700">TOTAL</span><span style="font-size:10px;color:#1D4ED8;font-weight:700">NT$1,000</span></div>
+                <div class="barcode"></div>
+              </div>
+            </div>
+          </div>
+          <div class="m-bottomnav">
+            <div class="m-tab"><div class="m-tab-icon"></div><div class="m-tab-lbl">首頁</div></div>
+            <div class="m-tab"><div class="m-tab-icon active"></div><div class="m-tab-lbl active">支出</div></div>
+            <div class="m-tab"><div class="m-tab-icon"></div><div class="m-tab-lbl">預算</div></div>
+            <div class="m-tab"><div class="m-tab-icon"></div><div class="m-tab-lbl">行程</div></div>
+            <div class="m-tab"><div class="m-tab-icon"></div><div class="m-tab-lbl">設定</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wf-wrap">
+  <div class="section-label">介面 3 ／ 預算透視 — Liquid Tank UI</div>
+  <div class="rwd-compare">
+    <div>
+      <div class="rwd-label"><span>Desktop / Tablet</span>水瓶橫排並列</div>
+      <div class="wf-frame">
+        <div class="wf-titlebar"><div class="wf-dot"></div><div class="wf-dot"></div><div class="wf-dot"></div><span class="wf-titlebar-text">預算透視</span><span class="wf-titlebar-rwd">max-width: 1200px</span></div>
+        <div class="wf-body">
+          <div class="wf-sidebar">
+            <div class="wf-logo"></div>
+            <div class="wf-nav-item">首頁儀表板</div>
+            <div class="wf-nav-item">支出明細</div>
+            <div class="wf-nav-item active">預算透視</div>
+            <div class="wf-nav-item">行程規劃</div>
+            <div class="wf-nav-item">旅程設定</div>
+            <div class="wf-trip-card"><div class="wf-trip-label">Current Trip</div><div class="wf-trip-name"></div><div class="wf-avatars"><div class="wf-avatar"></div><div class="wf-avatar"></div><div class="wf-avatar"></div></div></div>
+          </div>
+          <div class="wf-content">
+            <div class="wf-pg-title"></div><div class="wf-pg-sub"></div>
+            <div style="text-align:center;margin-bottom:20px">
+              <div style="font-size:11px;color:#6B7280;margin-bottom:4px;font-weight:500">旅程總預算 (TWD)</div>
+              <div style="font-size:24px;font-weight:700;color:#111827;margin-bottom:6px">96,000</div>
+              <span class="note-blue" style="margin-top:0;">點擊水瓶可編輯各類別預算</span>
+            </div>
+            <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap">
+              <div class="tank"><div class="tank-body"><div class="tank-fill" style="height:50%"></div></div><div class="tank-lbl">交通<br><span class="pct">50%</span></div><div style="font-size:9px;color:#6B7280;text-align:center">3,000<br>/6,000</div></div>
+              <div class="tank"><div class="tank-body"><div class="tank-fill" style="height:67%"></div></div><div class="tank-lbl">餐飲<br><span class="pct">67%</span></div><div style="font-size:9px;color:#6B7280;text-align:center">6,000<br>/9,000</div></div>
+              <div class="tank"><div class="tank-body"><div class="tank-fill" style="height:33%"></div></div><div class="tank-lbl">住宿<br><span class="pct">33%</span></div><div style="font-size:9px;color:#6B7280;text-align:center">20,000<br>/60,000</div></div>
+              <div class="tank"><div class="tank-body"><div class="tank-fill" style="height:50%"></div></div><div class="tank-lbl">門票<br><span class="pct">50%</span></div><div style="font-size:9px;color:#6B7280;text-align:center">1,000<br>/2,000</div></div>
+              <div class="tank"><div class="tank-body" style="border-color:#F87171"><div class="tank-fill over" style="height:90%"></div></div><div class="tank-lbl">購物<br><span class="pct over">90%⚠</span></div><div style="font-size:9px;color:#DC2626;text-align:center;font-weight:600">10,000<br>/16,000</div></div>
+              <div class="tank"><div class="tank-body"><div class="tank-fill" style="height:33%"></div></div><div class="tank-lbl">其他<br><span class="pct">33%</span></div><div style="font-size:9px;color:#6B7280;text-align:center">1,000<br>/3,000</div></div>
+            </div>
+            <div class="note-red" style="margin-top:20px; display:block; text-align:center;">超支警示：水位 ≥ 90% 觸發沸騰特效，邊框轉紅</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-wrap">
+      <div class="rwd-label"><span>Mobile</span>2×3 格線排列水瓶</div>
+      <div class="phone-shell">
+        <div class="phone-notch"><div class="phone-notch-pill"></div></div>
+        <div class="phone-screen">
+          <div class="m-topbar"><div class="m-logo"></div><div class="m-avatar"></div></div>
+          <div class="m-content">
+            <div style="text-align:center;margin-bottom:14px">
+              <div style="font-size:10px;color:#6B7280;font-weight:500">旅程總預算 (TWD)</div>
+              <div style="font-size:20px;font-weight:700;color:#111827">96,000</div>
+              <div style="font-size:9px;color:#1D4ED8;margin-top:4px;font-weight:600">點擊水瓶可編輯</div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;justify-items:center;margin-bottom:14px">
+              <div class="tank"><div class="tank-body"><div class="tank-fill" style="height:50%"></div></div><div class="tank-lbl">交通<br><span class="pct">50%</span></div></div>
+              <div class="tank"><div class="tank-body"><div class="tank-fill" style="height:67%"></div></div><div class="tank-lbl">餐飲<br><span class="pct">67%</span></div></div>
+              <div class="tank"><div class="tank-body"><div class="tank-fill" style="height:33%"></div></div><div class="tank-lbl">住宿<br><span class="pct">33%</span></div></div>
+              <div class="tank"><div class="tank-body"><div class="tank-fill" style="height:50%"></div></div><div class="tank-lbl">門票<br><span class="pct">50%</span></div></div>
+              <div class="tank"><div class="tank-body" style="border-color:#F87171"><div class="tank-fill over" style="height:90%"></div></div><div class="tank-lbl">購物<br><span class="pct over">90%</span></div></div>
+              <div class="tank"><div class="tank-body"><div class="tank-fill" style="height:33%"></div></div><div class="tank-lbl">其他<br><span class="pct">33%</span></div></div>
+            </div>
+            <div style="font-size:9px;color:#B91C1C;background:#FEF2F2;border:1px solid #FECACA;border-radius:4px;padding:5px 8px;font-weight:600;text-align:center;">⚠ 購物超支警示：觸發沸騰特效</div>
+          </div>
+          <div class="m-bottomnav">
+            <div class="m-tab"><div class="m-tab-icon"></div><div class="m-tab-lbl">首頁</div></div>
+            <div class="m-tab"><div class="m-tab-icon"></div><div class="m-tab-lbl">支出</div></div>
+            <div class="m-tab"><div class="m-tab-icon active"></div><div class="m-tab-lbl active">預算</div></div>
+            <div class="m-tab"><div class="m-tab-icon"></div><div class="m-tab-lbl">行程</div></div>
+            <div class="m-tab"><div class="m-tab-icon"></div><div class="m-tab-lbl">設定</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wf-wrap">
+  <div class="section-label">介面 4 ／ 行程規劃 — Tickets + Timeline</div>
+  <div class="rwd-compare">
+    <div>
+      <div class="rwd-label"><span>Desktop / Tablet</span>時間軸 + 右側票根欄</div>
+      <div class="wf-frame">
+        <div class="wf-titlebar"><div class="wf-dot"></div><div class="wf-dot"></div><div class="wf-dot"></div><span class="wf-titlebar-text">行程規劃</span><span class="wf-titlebar-rwd">max-width: 1200px</span></div>
+        <div class="wf-body">
+          <div class="wf-sidebar">
+            <div class="wf-logo"></div>
+            <div class="wf-nav-item">首頁儀表板</div>
+            <div class="wf-nav-item">支出明細</div>
+            <div class="wf-nav-item">預算透視</div>
+            <div class="wf-nav-item active">行程規劃</div>
+            <div class="wf-nav-item">旅程設定</div>
+            <div class="wf-trip-card"><div class="wf-trip-label">Current Trip</div><div class="wf-trip-name"></div><div class="wf-avatars"><div class="wf-avatar"></div><div class="wf-avatar"></div><div class="wf-avatar"></div></div></div>
+          </div>
+          <div class="wf-content">
+            <div class="wf-pg-title"></div><div class="wf-pg-sub"></div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+              <div class="day-badge">DAY 1</div>
+              <div style="height:8px;width:65px;background:#E5E7EB;border-radius:4px;border:1px solid #D1D5DB"></div>
+            </div>
+            <div class="tl-wrap">
+              <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div><div class="tl-dot"></div><div class="tl-line"></div><div class="tl-dot"></div></div>
+              <div class="tl-items">
+                <div class="tl-card"><div class="tl-img"></div><div class="tl-info"><div style="font-size:10px;color:#6B7280;margin-bottom:4px;font-weight:600">08:00</div><div style="height:10px;width:80px;background:#F3F4F6;border-radius:4px;border:1px solid #D1D5DB;margin-bottom:6px"></div><span class="chip chip-b">交通</span></div><div class="tl-right"><div style="font-size:9px;color:#6B7280;margin-bottom:4px;font-weight:500">預算估算</div><span class="chip chip-b">NT$6,000</span><div style="margin-top:5px"><span class="chip chip-r">實際 NT$3,000</span></div></div></div>
+                <div class="tl-card"><div class="tl-img"></div><div class="tl-info"><div style="font-size:10px;color:#6B7280;margin-bottom:4px;font-weight:600">11:30</div><div style="height:10px;width:60px;background:#F3F4F6;border-radius:4px;border:1px solid #D1D5DB;margin-bottom:6px"></div><span class="chip">餐飲</span></div><div class="tl-right"><div style="font-size:9px;color:#6B7280;margin-bottom:4px;font-weight:500">預算估算</div><span class="chip chip-b">NT$3,000</span></div></div>
+                <div class="tl-card"><div class="tl-img"></div><div class="tl-info"><div style="font-size:10px;color:#6B7280;margin-bottom:4px;font-weight:600">18:00</div><div style="height:10px;width:70px;background:#F3F4F6;border-radius:4px;border:1px solid #D1D5DB;margin-bottom:6px"></div><span class="chip">住宿</span></div><div class="tl-right"><div style="font-size:9px;color:#6B7280;margin-bottom:4px;font-weight:500">預算估算</div><span class="chip chip-b">NT$10,000</span></div></div>
+              </div>
+            </div>
+            <div class="note-blue" style="margin-top:14px">時間軸串聯行程節點，右側票根區顯示預算與實際支出對比</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-wrap">
+      <div class="rwd-label"><span>Mobile</span>全寬時間軸，票根收合為標籤</div>
+      <div class="phone-shell">
+        <div class="phone-notch"><div class="phone-notch-pill"></div></div>
+        <div class="phone-screen">
+          <div class="m-topbar"><div class="m-logo"></div><div class="m-avatar"></div></div>
+          <div class="m-content">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+              <div class="day-badge" style="font-size:10px;padding:3px 8px">DAY 1</div>
+              <div style="height:8px;width:55px;background:#E5E7EB;border-radius:4px;border:1px solid #D1D5DB"></div>
+            </div>
+            <div class="tl-wrap">
+              <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div><div class="tl-dot"></div><div class="tl-line"></div><div class="tl-dot"></div></div>
+              <div class="tl-items">
+                <div class="tl-card" style="flex-direction:column">
+                  <div style="display:flex;overflow:hidden"><div class="tl-img" style="width:48px;min-width:48px;height:auto"></div><div class="tl-info" style="padding:6px 8px"><div style="font-size:9px;color:#6B7280;font-weight:600">08:00</div><div style="height:8px;width:60px;background:#F3F4F6;border-radius:3px;border:1px solid #D1D5DB;margin:4px 0"></div><span class="chip chip-b" style="font-size:8px">交通</span></div></div>
+                  <div style="padding:6px 8px;display:flex;gap:4px;border-top:1px dashed #D1D5DB;background:#F9FAFB;">
+                    <span class="chip chip-b" style="font-size:8px">預算 NT$6,000</span>
+                    <span class="chip chip-r" style="font-size:8px">實際 NT$3,000</span>
+                  </div>
+                </div>
+                <div class="tl-card" style="flex-direction:column">
+                  <div style="display:flex;overflow:hidden"><div class="tl-img" style="width:48px;min-width:48px;height:auto"></div><div class="tl-info" style="padding:6px 8px"><div style="font-size:9px;color:#6B7280;font-weight:600">11:30</div><div style="height:8px;width:50px;background:#F3F4F6;border-radius:3px;border:1px solid #D1D5DB;margin:4px 0"></div><span class="chip" style="font-size:8px">餐飲</span></div></div>
+                  <div style="padding:6px 8px;border-top:1px dashed #D1D5DB;background:#F9FAFB;"><span class="chip chip-b" style="font-size:8px">預算 NT$3,000</span></div>
+                </div>
+                <div class="tl-card" style="flex-direction:column">
+                  <div style="display:flex;overflow:hidden"><div class="tl-img" style="width:48px;min-width:48px;height:auto"></div><div class="tl-info" style="padding:6px 8px"><div style="font-size:9px;color:#6B7280;font-weight:600">18:00</div><div style="height:8px;width:56px;background:#F3F4F6;border-radius:3px;border:1px solid #D1D5DB;margin:4px 0"></div><span class="chip" style="font-size:8px">住宿</span></div></div>
+                  <div style="padding:6px 8px;border-top:1px dashed #D1D5DB;background:#F9FAFB;"><span class="chip chip-b" style="font-size:8px">預算 NT$10,000</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="m-bottomnav">
+            <div class="m-tab"><div class="m-tab-icon"></div><div class="m-tab-lbl">首頁</div></div>
+            <div class="m-tab"><div class="m-tab-icon"></div><div class="m-tab-lbl">支出</div></div>
+            <div class="m-tab"><div class="m-tab-icon"></div><div class="m-tab-lbl">預算</div></div>
+            <div class="m-tab"><div class="m-tab-icon active"></div><div class="m-tab-lbl active">行程</div></div>
+            <div class="m-tab"><div class="m-tab-icon"></div><div class="m-tab-lbl">設定</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div></body>
+</html>
